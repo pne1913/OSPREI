@@ -6,6 +6,8 @@ import os
 import datetime
 from scipy.interpolate import CubicSpline
 
+## THIS IS JORDAN'S FORK ##
+
 # Import path names from file
 myPaths = dict(np.genfromtxt('myPaths.txt', dtype=str))
 mainpath = myPaths['mainpath:']
