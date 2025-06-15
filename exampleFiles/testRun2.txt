@@ -24,6 +24,6 @@ IVDf1:		.5
 doMH:		False
 MHarea:		1500
 MHdist:		0.25
-doPUP:		False
+doPUP:		True
 simYaw:		False
 satPath:	exampleFiles/testRun2.sats

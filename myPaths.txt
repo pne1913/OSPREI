@@ -1,5 +1,5 @@
-mainpath: /Users/ckay/OSPREI/
-codepath: /Users/ckay/OSPREI/coreCode
-magpath: /Users/ckay/OSPREI/PickleJar/
-processpath: /Users/ckay/OSPREI/processCode/
-heliopath: /Users/ckay/OSPREI/helioweb/
+mainpath: /mnt/titan/jordan/Documents/Education/3_Graduate/JHU/APL_Project/OSPREI/
+codepath: /mnt/titan/jordan/Documents/Education/3_Graduate/JHU/APL_Project/OSPREI/coreCode/
+magpath: /mnt/titan/jordan/Documents/Education/3_Graduate/JHU/APL_Project/OSPREI/PickleJar/
+processpath: /mnt/titan/jordan/Documents/Education/3_Graduate/JHU/APL_Project/OSPREI/processCode/
+heliopath: /mnt/titan/jordan/Documents/Education/3_Graduate/JHU/APL_Project/OSPREI/helioweb/
