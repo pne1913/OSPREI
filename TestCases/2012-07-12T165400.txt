@@ -1,20 +1,20 @@
 date:		20120712	
 time:		16:54:00
-#FCmagname:	HMI20210923syncCL
+FCmagname:	HMI20200901syncCL
 #SunRss:		2.5
 #suffix:		testRun7
-#models:	ALL
-models:		IP
+models:	ALL
+#models:		IP
 nRuns:		1
 #PFSSscale:	1.
-CMEr:     	10 #replace with 1.2 if running with ForeCAT
+CMEr:     	1.20 #replace with 10 if not running with ForeCAT
 CMElat:		-13.4
 CMElon:		1.6
 CMEtilt:    	78.0
 #CMEyaw	
 CMEvr:		1299.0
 CMEAW:		55
-CMEAWp:		57.76
+CMEAWp:		27.76 #imaginary value... real value from kappa breaks the model
 CMEM: 		15
 #CMEdelAx:   	0.7
 #CMEdelCS:   	0.9

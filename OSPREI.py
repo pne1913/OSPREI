@@ -66,9 +66,8 @@ def setupOSPREI(logInputs=False, inputPassed='noFile'):
         date = input_values['date']
     except:
         date = '99999999'
-        noDate = True
-        #sys.exit('Need name of magnetogram/date to run!!!')    
-            
+        noDate = True\
+        #sys.exit('Need name of magnetogram/date to run!!!')
     # Pull in other values from allinputs
     # possible_vars = ['suffix', 'nRuns']   
     # Set defaults for these values

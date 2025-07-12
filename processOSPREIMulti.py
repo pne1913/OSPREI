@@ -1,3 +1,6 @@
+## This is a super hacky script to take two inputs and overlay their plots
+## Don't use for anything worthwhile
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -25,6 +28,7 @@ plt.rcParams.update({'font.size':14})
 # Set up the path variable
 # I like keeping all the code in a single folder called code
 # but you do you (and update this to match whatever you do)
+#sys.path.append('../')
 import OSPREI as OSP
 mainpath = OSP.mainpath
 sys.path.append(os.path.abspath(OSP.codepath)) #MTMYS
@@ -35,6 +39,7 @@ import proMetrics as met
 import proForeCAT as proFore
 import proANTEATR as proANT
 import proFIDO
+import proFIDOMulti
 
 # |----------------------------------------------------------|
 # |------ Flags to control if plot all or a single one ------|
@@ -58,14 +63,15 @@ colorEns = True
 #BFcols = ['#882255', '#88CCEE', '#CC6677', '#44AA99', '#DDCC77', '#AA4499', '#117733', '#332288', ]
 BFcols = ['#03135B', '#A50026', '#364B9A', '#E34D34', '#5385BC', '#F99858', '#83B8D7', '#FDD081', '#B7DDEB', '#F3Fd81']
 # Color for metric combining all sats
-comboCol = 'red'
+comboCol  = 'red'
+comboCol2 = 'blue'
 
 
 # |-----------------------------------------------------------|
 # |------ The main processing code, just set as func to ------|
 # |------  allow for external calls --------------------------|
 # |-----------------------------------------------------------|
-def runproOSP(inputPassed='noFile', onlyIS=False):
+def runproOSP(inputPassed='noFile', inputPassed2='noFile', onlyIS=False):
     # |---------------------------------------------------------------------------------------|
     # |---------------------------------------------------------------------------------------|
     # |------------------------------------- Basic setup -------------------------------------|
@@ -75,8 +81,9 @@ def runproOSP(inputPassed='noFile', onlyIS=False):
     # |-----------------------------------------------------------|
     # |------ Use OSPREI to pull in the simulation parameters ----|
     # |-----------------------------------------------------------|
+    inputPassed=sys.argv[1]
+    print("input1: ", inputPassed)
     OSP.setupOSPREI(inputPassed=inputPassed)
-    
     
     # |---------------------------------------------|
     # |------ Read in the results from OSPREI ------|    
@@ -84,6 +91,7 @@ def runproOSP(inputPassed='noFile', onlyIS=False):
     global nSat, nEns, moreSilence, hitsSat, nFails, DoY, dObj, satColors
     try:
         ResArr, nSat, hitsSat, nFails, DoY, dObj = SP.txt2obj()
+        #print("ResArr: ", ResArr[0].)
         nEns = len(ResArr.keys())
         # Stop it from printing too much if have a large ensemble
         if nEns > 10:
@@ -93,8 +101,29 @@ def runproOSP(inputPassed='noFile', onlyIS=False):
         satColors = np.append(satColors, comboCol)        
     except:
         sys.exit('Error reading in OSPREI results. Exiting without plotting anything.')
-        
-    
+
+    # setup OSPREI again with the second set of results
+    inputPassed2=sys.argv[2]
+    print("input2: ",inputPassed2)
+    OSP.setupOSPREI(inputPassed=inputPassed2)
+    global nSat2, nEns2, moreSilence2, hitsSat2, nFails2, DoY2, dObj2, satColors2
+    try:
+        ResArr2, nSat2, hitsSat2, nFails2, DoY2, dObj2 = SP.txt2obj()
+        nEns2 = len(ResArr2.keys())
+        # Stop it from printing too much if have a large ensemble
+        if nEns2 > 10:
+            moreSilence2 = True
+        # Set up satellite colors
+        satColors2 = [BFcols[i] for i in range(nSat2)]
+        satColors2 = np.append(satColors2, comboCol2)
+    except:
+        sys.exit('Error reading in second set of OSPREI results. Exiting without plotting anything.')
+
+    if ResArr == ResArr2:
+        print("el same-o")
+    else:
+        print("el mis-o")
+
     # |------------------------------------------------------------|
     # |------ Check if we have observations and pull in if so -----|    
     # |------------------------------------------------------------|    
@@ -301,11 +330,12 @@ def runproOSP(inputPassed='noFile', onlyIS=False):
     # |------------------------------------------------------------| 
         if plotAll:
             for i in range(nSat):
+                print("satnum: ", i)
                 if hitsSat[i]:
-                    try:
-                        proFIDO.makeISplot(ResArr, dObj, DoY, satID=i, SWpadF=12, SWpadB=12, BFs=comboBFs, satCols=satColors, satNames=satNamesL, hasObs=hasObs, ObsData=ObsData)
-                    except:
-                        print('Error in making in situ plot for satellite ', satNames[i])
+                    #try:
+                    proFIDOMulti.makeISplot(ResArr, ResArr2, dObj, dObj2, DoY, DoY2, satID=i, SWpadF=12, SWpadB=12, BFs=comboBFs, satCols=satColors, satNames=satNamesL, hasObs=hasObs, ObsData=ObsData)
+                    #except:
+                        #print('Error in making in situ plot for satellite ', satNames[i])
     # |------------------------------------------------------------|
     # |------------- Make histograms with sheath data -------------|    
     # |------------------------------------------------------------| 

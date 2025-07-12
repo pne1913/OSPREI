@@ -91,7 +91,9 @@ class CME:
         if self.Lp >= self.Lr : # c >= a
             self.ecc = np.sqrt((self.Lp**2 - self.Lr**2) / self.Lp**2 )
         else:
+            #self.ecc = np.sqrt((self.Lp ** 2 - self.Lr ** 2) / self.Lp ** 2)
             self.ecc = np.sqrt((self.Lr**2 - self.Lp**2) / self.Lr**2 )
+            #print(self.ecc)
 
         # Forces at each point
         self.defforces = [[]]*Npoints

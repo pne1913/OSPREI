@@ -132,6 +132,7 @@ def txt2obj(GCStime=0):
 
     if OSP.doFC:
         FCfile = OSP.Dir+'/ForeCATresults'+OSP.thisName+'.dat'
+        print("FCfile: ", FCfile)
         FCdata = np.genfromtxt(FCfile, dtype=float, encoding='utf8')
         ids = FCdata[:,0].astype(int)
         unFCids = np.unique(ids)
@@ -170,6 +171,7 @@ def txt2obj(GCStime=0):
         
     if OSP.doANT:
         ANTfile = OSP.Dir+'/ANTEATRresults'+OSP.thisName+'.dat'
+        print("ANTfile: ", ANTfile)
         ANTdata = np.genfromtxt(ANTfile, dtype=float, encoding='utf8')
         # get the unique ANTEATR ideas (only one row per id here)
         # might have some missing if it misses
@@ -184,6 +186,7 @@ def txt2obj(GCStime=0):
             unANTids = np.unique(ANTdata[:,0].astype(int))
         if OSP.doPUP:
             PUPfile = OSP.Dir+'/PUPresults'+OSP.thisName+'.dat'
+            print("PUPfile: ", PUPfile)
             PUPdata = np.genfromtxt(PUPfile, dtype=float, encoding='utf8')
             try:
                 PUPids = PUPdata[:,0].astype(int)
@@ -314,6 +317,7 @@ def txt2obj(GCStime=0):
         for i in range(nSat):
             satName = satNames[i]
             FIDOfile = OSP.Dir+'/FIDOresults'+OSP.thisName+satName+'.dat'
+            print("FIDOfile: ", FIDOfile)
             file_size = os.path.getsize(FIDOfile)
             if file_size != 0:
                 FIDOdata[i] = np.genfromtxt(FIDOfile, dtype=float, encoding='utf8')
@@ -333,6 +337,7 @@ def txt2obj(GCStime=0):
             for i in range(nSat):
                 satName = satNames[i]
                 SITfile = OSP.Dir+'/SITresults'+OSP.thisName+satName+'.dat'
+                print("SITfile: ", SITfile)
                 SITdata[i] = np.genfromtxt(SITfile, dtype=float, encoding='utf8')
                 if len(SITdata[i].shape) > 1:
                     SITids[i] = SITdata[i][:,0].astype(int)
@@ -517,7 +522,7 @@ def txt2obj(GCStime=0):
         varied = sorted(varied, key=lambda x: myOrder.index(x))    
     
     if OSP.doFC and not OSP.doANT:
-        nSat, hitsSat = 0, False      
+        nSat, hitsSat = 0, False
     return ResArr, nSat, hitsSat, nFails, DoY, dObj
     
 # |----- Mini script to determine Kp from other params -----|
